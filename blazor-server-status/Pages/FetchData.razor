@@ -1,0 +1,77 @@
+﻿@page "/fetchdata"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager Navigation
+@implements IAsyncDisposable
+
+<PageTitle>Weather forecast</PageTitle>
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Server</th>
+                <th>Port</th>
+                <th>Status</th>
+                <th>Last Check</th>
+                <th>Next Check</th>
+                <th>Last Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var server in forecasts)
+            {
+                <tr>
+                    <td>@server.Host</td>
+                    <td>@server.Port</td>
+                    <td>@server.IsOnline</td>
+                    <td>@server.LastCheck</td>
+                    <td>@server.NextCheck</td>
+                    <td>@server.LastUpdate</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+@code {
+    private List<ServerModel>? forecasts;
+    private HubConnection? hubConnection;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/serverhub"))
+            .Build();
+
+        hubConnection.On<string>("NotifyServerChange", (message) =>
+        {
+            forecasts = System.Text.Json.JsonSerializer.Deserialize<List<ServerModel>>(message);
+            InvokeAsync(StateHasChanged);
+        });
+
+        await hubConnection.StartAsync();
+    }
+    public bool IsConnected =>
+     hubConnection?.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}
