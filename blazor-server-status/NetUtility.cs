@@ -23,7 +23,9 @@ namespace blazor_server_status
             {
                 DateTime start = DateTime.Now;
                 IAsyncResult result = tcp.BeginConnect(host, port, null, null);
+
                 WaitHandle wait = result.AsyncWaitHandle;
+
                 bool ok = true;
 
                 try

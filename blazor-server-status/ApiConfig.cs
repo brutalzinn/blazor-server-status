@@ -17,6 +17,14 @@
         public bool IsOnline { get; set; }
         public List<string> Logs { get; private set; }
 
+        public ServerModel()
+        {
+            if (Name == null)
+            {
+                Name = Host;
+            }
+            Logs = new List<string>();
+        }
         public bool IsExecuteTime()
         {
             if (DateTime.Now >= NextCheck)
@@ -33,15 +41,9 @@
             NextCheck = LastCheck.Add(ExecuteIn);
             RefreshLastUpdate();
         }
-        public void InsertOfflineLog()
+        public void WriteLog(string log)
         {
-            Logs.Add("Server is offline");
-            RefreshLastUpdate();
-
-        }
-        public void InsertOnlineLog()
-        {
-            Logs.Add("Server is online");
+            Logs.Add(string.Format(log, DateTime.Now));
             RefreshLastUpdate();
 
         }

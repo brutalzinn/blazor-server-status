@@ -9,21 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.InjectConfiguration();
+builder.Services.InjectCacheStorage();
+builder.Services.InjectServices();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<ServerPingService>();
-builder.Services.AddHostedService<StatusBackgroundService>();
-builder.Services.AddResponseCompression(opts =>
-{
-    opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-        new[] { "application/octet-stream" });
-});
 var app = builder.Build();
-
-app.UseResponseCompression();
-
-
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -36,6 +26,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.MapBlazorHub();
 app.MapHub<ServerHub>("/serverhub");
+
 app.MapFallbackToPage("/_Host");
 
 app.Run();
