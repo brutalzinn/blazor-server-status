@@ -6,9 +6,9 @@
     }
     public class ServerModel
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public string Host { get; set; }
-        public int? Port { get; set; }
+        public int Port { get; set; }
         public TimeSpan ExecuteIn { get; set; }
         public bool Enabled { get; set; }
         public DateTime LastCheck { get; set; }
@@ -21,8 +21,8 @@
         {
             if (DateTime.Now >= NextCheck)
             {
-                UpdateNextCheck();
                 LastCheck = DateTime.Now;
+                UpdateNextCheck();
                 return true;
             }
             LastCheck = DateTime.Now;

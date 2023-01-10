@@ -32,19 +32,11 @@ namespace blazor_server_status.Data
                 var item = ServerList[i];
                 if (item.IsExecuteTime())
                 {
-                    item.IsOnline = PingHost(item.Host, item.Port);
+                    item.IsOnline = NetUtility.Ping(item.Host, item.Port, TimeSpan.FromSeconds(3));
                 }
                 ServerList[i] = item;
             }
             await _hubContext.Clients.All.SendAsync("NotifyServerChange", JsonSerializer.Serialize(ServerList));
-        }
-
-        public static bool PingHost(string hostUri, int? portNumber)
-        {
-
-            using var ping = new Ping();
-            PingReply res = ping.Send(hostUri);
-            return res.Status == IPStatus.Success;
         }
     }
 }
