@@ -35,21 +35,12 @@ namespace blazor_server_status.Data
             for (var i = 0; i < ServerList.Count(); i++)
             {
                 var item = ServerList[i];
-                if (item.Enabled == false)
-                {
-                    return;
-                }
-                if (item.IsExecuteTime())
+                string log = "";
+                if (item.Enabled && item.IsExecuteTime())
                 {
                     var isOnline = NetUtility.Ping(item.Host, item.Port, TimeSpan.FromSeconds(5));
-                    if (isOnline)
-                    {
-                        item.WriteLog("{0} Server is online");
-                        return;
-                    }
-                    item.WriteLog("{0} Server is offline");
+                    item.IsOnline = isOnline;
                 }
-
                 _redisService.Set(item.Host, item.Logs, TimeSpan.FromHours(24));
                 ServerList[i] = item;
             }

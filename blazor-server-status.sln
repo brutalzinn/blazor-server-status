@@ -5,9 +5,7 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "blazor-server-status", "blazor-server-status\blazor-server-status.csproj", "{84340CA9-243A-4FBA-AF13-A7E6ABEF352B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{29A3726F-9484-4572-9095-6DCA32AE06F0}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9B7EF490-2277-4F03-A349-527AE045FDEA}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CEDFE05B-1652-4838-B7A7-BDC4EDB716CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,10 @@ Global
 		{84340CA9-243A-4FBA-AF13-A7E6ABEF352B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84340CA9-243A-4FBA-AF13-A7E6ABEF352B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84340CA9-243A-4FBA-AF13-A7E6ABEF352B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B7EF490-2277-4F03-A349-527AE045FDEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B7EF490-2277-4F03-A349-527AE045FDEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B7EF490-2277-4F03-A349-527AE045FDEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B7EF490-2277-4F03-A349-527AE045FDEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEDFE05B-1652-4838-B7A7-BDC4EDB716CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEDFE05B-1652-4838-B7A7-BDC4EDB716CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEDFE05B-1652-4838-B7A7-BDC4EDB716CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEDFE05B-1652-4838-B7A7-BDC4EDB716CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

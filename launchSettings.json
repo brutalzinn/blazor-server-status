@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "blazor-server-status",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}",
+      "serviceActions": {
+        "blazor-server-status": "StartDebugging",
+        "redis_service": "StartWithoutDebugging",
+        "redis_teste": "StartWithoutDebugging"
+      }
+    }
+  }
+}

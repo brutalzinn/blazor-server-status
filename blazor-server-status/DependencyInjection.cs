@@ -1,6 +1,5 @@
 ﻿using blazor_server_status;
 using blazor_server_status.Data;
-using System;
 
 public static class DependencyInjection
 {

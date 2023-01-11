@@ -19,10 +19,7 @@
 
         public ServerModel()
         {
-            if (Name == null)
-            {
-                Name = Host;
-            }
+            Name = Name ?? Host;
             Logs = new List<string>();
         }
         public bool IsExecuteTime()
@@ -43,13 +40,19 @@
         }
         public void WriteLog(string log)
         {
-            Logs.Add(string.Format(log, DateTime.Now));
-            RefreshLastUpdate();
+            Logs.Add(string.Format(log, DateTime.Now, Name ?? Host));
+        }
+        public void WriteLogChangeStatus(string log)
+        {
+            if (Logs.Contains())
+            {
+
+            }
+            Logs.Add(string.Format("{0}-{1}", DateTime.Now));
         }
         public void ClearLogs()
         {
             Logs.Clear();
-            RefreshLastUpdate();
         }
         private void RefreshLastUpdate()
         {
