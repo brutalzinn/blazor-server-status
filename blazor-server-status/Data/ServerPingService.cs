@@ -47,7 +47,7 @@ namespace blazor_server_status.Data
                 _redisService.Set(item.Host, item.Logs, TimeSpan.FromHours(24));
                 ServerList[i] = item;
             }
-            await _hubContext.Clients.All.SendAsync("NotifyServerChange", JsonSerializer.Serialize(ServerList));
+            await _hubContext.Clients.All.SendAsync("NotifyServerChange", ServerList);
         }
     }
 }

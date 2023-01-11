@@ -7,7 +7,7 @@ namespace blazor_server_status.Hubs
     {
         public async Task SendMessage(List<ServerModel> serverStatus)
         {
-            await Clients.All.SendAsync("NotifyServerChange", JsonSerializer.Serialize(serverStatus));
+            Clients.All.SendAsync("NotifyServerChange", serverStatus);
         }
     }
 }
