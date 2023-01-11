@@ -37,21 +37,22 @@ namespace blazor_server_status.Data
                 var item = ServerList[i];
                 if (item.Enabled == false)
                 {
-                    continue;
+                    return;
                 }
                 if (item.IsExecuteTime())
                 {
-                    item.IsOnline = NetUtility.Ping(item.Host, item.Port, TimeSpan.FromSeconds(3));
-                    item.WriteLog("{0} Server is online");
-                }
-                else
-                {
+                    var isOnline = NetUtility.Ping(item.Host, item.Port, TimeSpan.FromSeconds(5));
+                    if (isOnline)
+                    {
+                        item.WriteLog("{0} Server is online");
+                        return;
+                    }
                     item.WriteLog("{0} Server is offline");
                 }
+
                 _redisService.Set(item.Host, item.Logs, TimeSpan.FromHours(24));
                 ServerList[i] = item;
             }
-
             await _hubContext.Clients.All.SendAsync("NotifyServerChange", JsonSerializer.Serialize(ServerList));
         }
     }

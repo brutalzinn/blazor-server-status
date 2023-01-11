@@ -1,6 +1,9 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.SignalR.Client
+@using blazor_server_status.Data;
 @inject NavigationManager Navigation
+@inject ServerPingService servicePingService
+
 @implements IAsyncDisposable
 
 <PageTitle>Service status</PageTitle>
@@ -37,7 +40,7 @@ else
                     <td>@server.LastUpdate</td>
                     <div class="@NavMenuCssClass nav-scrollable">
                     <nav class="flex-column">
-                    @foreach( var item in server.Logs)
+                            @foreach (var item in servicePingService.GetLogsByHost(server.Host))
                     {
                         <span>@item</span>
                     }

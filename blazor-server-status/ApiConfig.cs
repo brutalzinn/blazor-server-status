@@ -45,7 +45,6 @@
         {
             Logs.Add(string.Format(log, DateTime.Now));
             RefreshLastUpdate();
-
         }
         public void ClearLogs()
         {
