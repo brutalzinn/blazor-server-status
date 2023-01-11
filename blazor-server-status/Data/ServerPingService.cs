@@ -40,6 +40,9 @@ namespace blazor_server_status.Data
                 {
                     var isOnline = NetUtility.Ping(item.Host, item.Port, TimeSpan.FromSeconds(5));
                     item.IsOnline = isOnline;
+
+                    item.WriteLog(item.Name ?? item.Host);
+
                 }
                 _redisService.Set(item.Host, item.Logs, TimeSpan.FromHours(24));
                 ServerList[i] = item;

@@ -19,7 +19,6 @@
 
         public ServerModel()
         {
-            Name = Name ?? Host;
             Logs = new List<string>();
         }
         public bool IsExecuteTime()
@@ -40,19 +39,14 @@
         }
         public void WriteLog(string log)
         {
-            Logs.Add(string.Format(log, DateTime.Now, Name ?? Host));
-        }
-        public void WriteLogChangeStatus(string log)
-        {
-            if (Logs.Contains())
-            {
+            var onlineStatus = IsOnline ? "Online" : "Offline";
 
+            var lastLog = Logs.LastOrDefault();
+            if (lastLog != null && lastLog.EndsWith("-" + onlineStatus))
+            {
+                return;
             }
-            Logs.Add(string.Format("{0}-{1}", DateTime.Now));
-        }
-        public void ClearLogs()
-        {
-            Logs.Clear();
+            Logs.Add(string.Format("{0} {1}-{2}", log, DateTime.Now, onlineStatus));
         }
         private void RefreshLastUpdate()
         {
