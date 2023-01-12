@@ -25,9 +25,8 @@ app.UseResponseCompression();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    app.UseHsts();
 }
-
+app.UseHsts();
 app.UseStaticFiles();
 app.UseRouting();
 app.MapBlazorHub();
