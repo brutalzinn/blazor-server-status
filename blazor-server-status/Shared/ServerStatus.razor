@@ -72,9 +72,8 @@ else
     protected override async Task OnInitializedAsync()
     {
         hubConnection = new HubConnectionBuilder()
-                    .WithUrl("http://host.docker.internal:5000/serverhub")
-
-            //.WithUrl(Navigation.ToAbsoluteUri("/serverhub"))
+                    //.WithUrl("http:host.docker.internal:5000/serverhub")
+            .WithUrl(Navigation.ToAbsoluteUri("/serverhub"))
             .Build();
 
         hubConnection.On<string>("NotifyServerChange", (message) =>
