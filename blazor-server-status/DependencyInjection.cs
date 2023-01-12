@@ -1,5 +1,6 @@
 ﻿using blazor_server_status;
 using blazor_server_status.Data;
+using ConfigurationSubstitution;
 
 public static class DependencyInjection
 {
@@ -10,7 +11,10 @@ public static class DependencyInjection
              .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
              .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)
              .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
-             .Build();
+              .AddEnvironmentVariables()
+            .EnableSubstitutions("%", "%")
+            .Build();
+
 
 
         services.Configure<ApiConfig>(options => Configuration.GetSection("ApiConfig").Bind(options));
