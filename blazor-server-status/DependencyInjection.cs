@@ -8,10 +8,10 @@ public static class DependencyInjection
     public static void InjectConfiguration(this IServiceCollection services)
     {
         Configuration = new ConfigurationBuilder()
-             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-             .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)
-             .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
-              .AddEnvironmentVariables()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables()
             .EnableSubstitutions("%", "%")
             .Build();
 
