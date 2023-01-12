@@ -4,6 +4,3 @@
 
 # Home Screen 1
 ![Home screen](/docs/imgs/home_screen.png)
-
-
-### IO BLOCK ISSUE DETECTED. DONT RUN THIS
