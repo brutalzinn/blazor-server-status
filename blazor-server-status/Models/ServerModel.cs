@@ -1,10 +1,22 @@
-﻿using blazor_server_status.Models;
+﻿using blazor_server_status.Application.Messages.Hubs.ServerHub;
+using blazor_server_status.Models;
 
-namespace blazor_server_status.Infra
+namespace blazor_server_status.Models
 {
     public class ServerModel
     {
-        public string? Name { get; set; }
+        public string? Name
+        {
+            get
+            {
+                return _name ?? Host;
+            }
+
+            set
+            {
+                _name = value;
+            }
+        }
         public string Host { get; set; }
         public int Port { get; set; }
         public TimeSpan ExecuteIn { get; set; }
@@ -14,7 +26,8 @@ namespace blazor_server_status.Infra
         public DateTime LastUpdate { get; set; }
         public ServerStatus Status { get; set; }
         public List<LogModel> Logs { get; private set; }
-        private string MessageStatus => Status == ServerStatus.ONLINE ? "Online" : "Offline";
+        public string MessageStatus => Status == ServerStatus.ONLINE ? "Online" : "Offline";
+        private string _name { get; set; }
 
         public ServerModel()
         {
@@ -39,20 +52,37 @@ namespace blazor_server_status.Infra
 
         public void UpdateStatusChange()
         {
-            WriteLog($"{Name} is {MessageStatus}");
+            WriteLog($"{DateTime.Now}-{Name} is {MessageStatus}");
         }
         private void WriteLog(string log)
         {
             var lastLog = Logs.LastOrDefault();
-            if (lastLog.Status.Equals(Status))
+            if (lastLog != null && lastLog.Status.Equals(Status))
             {
                 return;
             }
-            Logs.Add(string.Format("{0} {1}-{2}", log, DateTime.Now, onlineStatus));
+            Logs.Add(new LogModel(log, Status));
         }
         private void RefreshLastUpdate()
         {
             LastUpdate = DateTime.Now;
+        }
+
+        public ServerMessageModel ToMap()
+        {
+            return new ServerMessageModel()
+            {
+                Host = Host,
+                Enabled = Enabled,
+                ExecuteIn = ExecuteIn,
+                LastCheck = LastCheck,
+                LastUpdate = LastUpdate,
+                Logs = Logs,
+                Name = Name,
+                NextCheck = NextCheck,
+                Port = Port,
+                Status = Status
+            };
         }
     }
 }

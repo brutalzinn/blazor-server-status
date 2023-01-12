@@ -9,7 +9,7 @@
       "serviceActions": {
         "blazor-server-status": "StartDebugging",
         "redis_service": "StartWithoutDebugging",
-        "redis_teste": "StartWithoutDebugging"
+        "teste_service": "StartWithoutDebugging"
       }
     }
   }

@@ -1,4 +1,6 @@
+using blazor_server_status.Application.Messages.Hubs.ServerHub;
 using blazor_server_status.Hubs;
+using blazor_server_status.Models;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using System;
@@ -25,9 +27,9 @@ namespace blazor_server_status.Data
             _redisService = redisService;
         }
 
-        public List<string> GetLogsByHost(string host)
+        public List<LogModel> GetServerInfo(string host)
         {
-            return _redisService.Get<List<string>>(host);
+            return _redisService.Get<List<LogModel>>(host);
         }
 
         public async Task CheckPings()
@@ -35,19 +37,16 @@ namespace blazor_server_status.Data
             for (var i = 0; i < ServerList.Count(); i++)
             {
                 var item = ServerList[i];
-                string log = "";
                 if (item.Enabled && item.IsExecuteTime())
                 {
                     var isOnline = NetUtility.Ping(item.Host, item.Port, TimeSpan.FromSeconds(5));
-                    item.IsOnline = isOnline;
-
-                    item.WriteLog(item.Name ?? item.Host);
-
+                    item.Status = isOnline ? ServerStatus.ONLINE : ServerStatus.OFFLINE;
+                    item.UpdateStatusChange();
+                    _redisService.Set(item.Host, item.Logs, TimeSpan.FromHours(24));
                 }
-                _redisService.Set(item.Host, item.Logs, TimeSpan.FromHours(24));
                 ServerList[i] = item;
             }
-            await _hubContext.Clients.All.SendAsync("NotifyServerChange", ServerList);
+            await _hubContext.Clients.All.SendAsync("NotifyServerChange", JsonSerializer.Serialize(ServerList));
         }
     }
 }

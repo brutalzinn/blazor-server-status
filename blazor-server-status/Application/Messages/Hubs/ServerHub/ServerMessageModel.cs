@@ -1,4 +1,6 @@
-﻿namespace blazor_server_status.Application.Messages.Hubs.ServerHub
+﻿using blazor_server_status.Models;
+
+namespace blazor_server_status.Application.Messages.Hubs.ServerHub
 {
     public class ServerMessageModel
     {
@@ -10,8 +12,9 @@
         public DateTime LastCheck { get; set; }
         public DateTime NextCheck { get; set; }
         public DateTime LastUpdate { get; set; }
-        public bool IsOnline { get; set; }
-        public List<string> Logs { get; private set; }
+        public ServerStatus Status { get; set; }
+        public List<LogModel> Logs { get; set; }
+        public string MessageStatus => Status == ServerStatus.ONLINE ? "Online" : "Offline";
 
         public ServerMessageModel()
         {
@@ -19,7 +22,6 @@
             {
                 Name = Host;
             }
-            Logs = new List<string>();
         }
     }
 }

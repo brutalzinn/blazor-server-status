@@ -10,7 +10,10 @@ services:
     image: redis:6.2-alpine
     ports:
     - "6379:6379"
-  redis_teste:
-    image: redis:6.2-alpine
+  teste_service:
+    image: docker/getting-started
+    container_name: container_teste
     ports:
-    - "6366:6379"
+    - "6666:80"
+
+    

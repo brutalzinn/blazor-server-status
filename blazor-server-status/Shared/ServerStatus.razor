@@ -2,6 +2,7 @@
 
 @using Microsoft.AspNetCore.SignalR.Client
 @using blazor_server_status.Data;
+@using blazor_server_status.Models;
 @inject NavigationManager Navigation
 @inject ServerPingService servicePingService
 @implements IAsyncDisposable
@@ -29,15 +30,15 @@ else
                 <tr @onclick="()=> ShowLog(server.Host)">
                     <td>@server.Name</td>
                     <td>@server.Host:@server.Port</td>
-                    <td>@server.IsOnline</td>
+                    <td>@server.MessageStatus</td>
                     <td>@server.LastCheck</td>
                     <td>@server.NextCheck</td>
                     <td>@server.LastUpdate</td>
                 </tr>
             }
-            @foreach (var item in Logs)
+            @foreach (var item in CurrentLogs)
             {
-                <tr>@item</tr>
+                <tr>@item.Message</tr>
             }
         </tbody>
     </table>
@@ -49,13 +50,20 @@ else
     private List<ServerModel>? servers;
     private HubConnection? hubConnection;
     private bool collapseNavMenu = true;
-    private List<string> Logs = new List<string>();
-
+    private List<LogModel> CurrentLogs = new List<LogModel>();
+    private string? CurrentHost;
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
     private void ShowLog(string host)
     {
-        Logs = servicePingService.GetLogsByHost(host);
+        CurrentHost = host;
+        UpdateLogs();
         ToggleNavMenu();
+    }
+    private void UpdateLogs()
+    {
+        if (CurrentHost is null)
+            return;
+        CurrentLogs = servicePingService.GetServerInfo(CurrentHost);
     }
     private void ToggleNavMenu()
     {
@@ -72,6 +80,7 @@ else
         hubConnection.On<string>("NotifyServerChange", (message) =>
         {
             servers = System.Text.Json.JsonSerializer.Deserialize<List<ServerModel>>(message);
+            UpdateLogs();
             InvokeAsync(StateHasChanged);
         });
 
