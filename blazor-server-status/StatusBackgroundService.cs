@@ -23,7 +23,7 @@ namespace blazor_server_status
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await _serverPingService.CheckPings();
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
             }
         }
 

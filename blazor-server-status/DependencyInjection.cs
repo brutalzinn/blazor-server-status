@@ -14,9 +14,6 @@ public static class DependencyInjection
             .AddEnvironmentVariables()
             .EnableSubstitutions("%", "%")
             .Build();
-
-
-
         services.Configure<ApiConfig>(options => Configuration.GetSection("ApiConfig").Bind(options));
     }
 
