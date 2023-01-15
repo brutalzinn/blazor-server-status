@@ -42,7 +42,7 @@ namespace blazor_server_status.Data
                     var isOnline = NetUtility.Ping(item.Host, item.Port, TimeSpan.FromSeconds(5));
                     item.Status = isOnline ? ServerStatus.ONLINE : ServerStatus.OFFLINE;
                     item.UpdateStatusChange();
-                    _redisService.Set(item.Host, item.Logs, TimeSpan.FromHours(24));
+                    _redisService.Set(item.Host, item.Logs, TimeSpan.FromDays(7));
                 }
                 ServerList[i] = item;
             }
