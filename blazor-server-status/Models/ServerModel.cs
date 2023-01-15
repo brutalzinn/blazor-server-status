@@ -52,7 +52,8 @@ namespace blazor_server_status.Models
 
         public void UpdateStatusChange()
         {
-            WriteLog($"{DateTime.Now}-{Name} is {MessageStatus}");
+            //temporary solution because in Brazil we use common DD/MM/YYYY HH:TT:SS format for dates with time.
+            WriteLog(string.Format("{0}-{1} is {0}", DateTime.Now.ToString("g"), Name, MessageStatus));
         }
         private void WriteLog(string log)
         {

@@ -31,9 +31,9 @@ else
                     <td>@server.Name</td>
                     <td>@server.Host:@server.Port</td>
                     <td>@server.MessageStatus</td>
-                    <td>@server.LastCheck</td>
-                    <td>@server.NextCheck</td>
-                    <td>@server.LastUpdate</td>
+                    <td>@server.LastCheck.ToString("g")</td>
+                    <td>@server.NextCheck.ToString("g")</td>
+                    <td>@server.LastUpdate.ToString("g")</td>
                 </tr>
             }
             @foreach (var item in CurrentLogs)
