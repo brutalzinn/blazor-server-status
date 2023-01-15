@@ -25,7 +25,6 @@ app.UseResponseCompression();
 app.UseRequestLocalization(new RequestLocalizationOptions
 {
     DefaultRequestCulture = new RequestCulture("pt-BR"),
-
 });
 if (!app.Environment.IsDevelopment())
 {
