@@ -54,7 +54,7 @@ namespace blazor_server_status.Models
         {
             /// i need to check a correct form to do this here. This is because the current culture .use only configures builder steps.
             /// But the services sitill dont know about pt-BR is default.
-            var currentDateTime = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
+            var currentDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             WriteLog($"{currentDateTime}-{Name} is {MessageStatus}");
         }
         private void WriteLog(string log)
