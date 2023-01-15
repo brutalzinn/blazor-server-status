@@ -1,4 +1,5 @@
 using blazor_server_status.Hubs;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +22,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseResponseCompression();
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("pt-BR"),
 
+});
 if (!app.Environment.IsDevelopment())
 {
     //  app.UseExceptionHandler("/Error");
