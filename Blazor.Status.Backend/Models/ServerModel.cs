@@ -1,7 +1,7 @@
-﻿using blazor_server_status.Application.Messages.Hubs.ServerHub;
-using blazor_server_status.Models;
+﻿using Blazor.Status.Backend.Application.Messages.Hubs.ServerHub;
+using Serilog;
 
-namespace blazor_server_status.Models
+namespace Blazor.Status.Backend.Models
 {
     public class ServerModel
     {
@@ -35,13 +35,12 @@ namespace blazor_server_status.Models
         }
         public bool IsExecuteTime()
         {
+            LastCheck = DateTime.Now;
             if (DateTime.Now >= NextCheck)
             {
-                LastCheck = DateTime.Now;
                 UpdateNextCheck();
                 return true;
             }
-            LastCheck = DateTime.Now;
             return false;
         }
         public void UpdateNextCheck()
@@ -64,6 +63,8 @@ namespace blazor_server_status.Models
             {
                 return;
             }
+
+            Log.Warning(log);
             Logs.Add(new LogModel(log, Status));
         }
         private void RefreshLastUpdate()

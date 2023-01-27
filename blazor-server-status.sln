@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		docker_test.py = docker_test.py
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Status.Backend", "Blazor.Status.Backend\Blazor.Status.Backend.csproj", "{314F8832-3143-4D75-B06A-28E373B4B0C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{CEDFE05B-1652-4838-B7A7-BDC4EDB716CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEDFE05B-1652-4838-B7A7-BDC4EDB716CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEDFE05B-1652-4838-B7A7-BDC4EDB716CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{314F8832-3143-4D75-B06A-28E373B4B0C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{314F8832-3143-4D75-B06A-28E373B4B0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{314F8832-3143-4D75-B06A-28E373B4B0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{314F8832-3143-4D75-B06A-28E373B4B0C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,7 @@
-using blazor_server_status.Application.Messages.Hubs.ServerHub;
-using blazor_server_status.Hubs;
-using blazor_server_status.Models;
+using Blazor.Status.Backend.Configs;
+using Blazor.Status.Backend.Hubs;
+using Blazor.Status.Backend.Models;
+using Blazor.Status.Backend.Utils;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using System;
@@ -8,7 +9,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.Json;
 
-namespace blazor_server_status.Data
+namespace Blazor.Status.Backend.Services
 {
     public class ServerPingService
     {

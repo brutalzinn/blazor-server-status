@@ -1,13 +1,17 @@
-using blazor_server_status.Hubs;
+using Blazor.Status.Backend.Hubs;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.ResponseCompression;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.Discord;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
+builder.InjectSeriLog();
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-
 builder.Services.InjectConfiguration();
 builder.Services.InjectCacheStorage();
 builder.Services.InjectServices();

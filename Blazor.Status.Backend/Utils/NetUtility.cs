@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 
-namespace blazor_server_status
+namespace Blazor.Status.Backend.Utils
 {
     public static class NetUtility
     {

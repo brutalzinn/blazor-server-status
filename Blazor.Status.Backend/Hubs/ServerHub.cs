@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Text.Json;
 
-namespace blazor_server_status.Hubs
+namespace Blazor.Status.Backend.Hubs
 {
     /// <summary>
     /// i dont  need this typed now.

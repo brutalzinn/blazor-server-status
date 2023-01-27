@@ -1,8 +1,7 @@
 ﻿@inherits LayoutComponentBase
-
+@using Blazor.Status.Backend.Models;
+@using Blazor.Status.Backend.Services;
 @using Microsoft.AspNetCore.SignalR.Client
-@using blazor_server_status.Data;
-@using blazor_server_status.Models;
 @inject NavigationManager Navigation
 @inject ServerPingService servicePingService
 @implements IAsyncDisposable

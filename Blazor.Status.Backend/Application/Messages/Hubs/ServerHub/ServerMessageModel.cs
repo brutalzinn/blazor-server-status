@@ -1,6 +1,6 @@
-﻿using blazor_server_status.Models;
+﻿using Blazor.Status.Backend.Models;
 
-namespace blazor_server_status.Application.Messages.Hubs.ServerHub
+namespace Blazor.Status.Backend.Application.Messages.Hubs.ServerHub
 {
     public class ServerMessageModel
     {

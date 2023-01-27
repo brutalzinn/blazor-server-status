@@ -1,19 +1,15 @@
-﻿using blazor_server_status.Data;
-using Microsoft.Extensions.Options;
-using System.Net.Sockets;
+﻿using Microsoft.Extensions.Hosting;
 
-namespace blazor_server_status
+namespace Blazor.Status.Backend.Services
 {
     public class StatusBackgroundService : BackgroundService
     {
 
-        private readonly ILogger<StatusBackgroundService> _logger;
         private readonly ServerPingService _serverPingService;
 
-        public StatusBackgroundService(ILogger<StatusBackgroundService> logger,
+        public StatusBackgroundService(
             ServerPingService serverPingService)
         {
-            _logger = logger;
             _serverPingService = serverPingService;
         }
 
@@ -21,7 +17,6 @@ namespace blazor_server_status
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await _serverPingService.CheckPings();
                 await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
             }

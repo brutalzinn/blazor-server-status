@@ -1,4 +1,4 @@
-﻿namespace blazor_server_status.Models
+﻿namespace Blazor.Status.Backend.Models
 {
     public enum ServerStatus
     {

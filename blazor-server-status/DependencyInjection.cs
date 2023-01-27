@@ -1,10 +1,32 @@
-﻿using blazor_server_status;
-using blazor_server_status.Data;
+﻿using Blazor.Status.Backend.Configs;
+using Blazor.Status.Backend.Services;
 using ConfigurationSubstitution;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.Discord;
 
 public static class DependencyInjection
 {
     public static IConfiguration Configuration;
+
+    public static void InjectSeriLog(this WebApplicationBuilder builder)
+    {
+        var discordWebhookUrl = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_URL");
+        Uri redisUrl;
+        ulong webHookId = 0;
+        string webhookToken = "";
+        bool isDiscordUrl = Uri.TryCreate(discordWebhookUrl, UriKind.Absolute, out redisUrl);
+        if (isDiscordUrl)
+        {
+            var discordIdSegment = redisUrl.Segments[3].TrimEnd('/');
+            var discordTokenSegment = redisUrl.Segments[4];
+            ulong.TryParse(discordIdSegment, out webHookId);
+            webhookToken = discordTokenSegment;
+        }
+        builder.Host.UseSerilog((ctx, lc) => lc
+            .WriteTo.Discord(webHookId, webhookToken, restrictedToMinimumLevel: LogEventLevel.Warning));
+
+    }
     public static void InjectConfiguration(this IServiceCollection services)
     {
         Configuration = new ConfigurationBuilder()
@@ -19,6 +41,7 @@ public static class DependencyInjection
 
     public static void InjectServices(this IServiceCollection services)
     {
+
         services.AddSingleton<RedisService>();
         services.AddSingleton<ServerPingService>();
         services.AddHostedService<StatusBackgroundService>();
@@ -28,10 +51,10 @@ public static class DependencyInjection
     {
         services.AddStackExchangeRedisCache(options =>
         {
-            options.Configuration = ObterRedisContext();
+            options.Configuration = GetRedisContext();
         });
 
-        string ObterRedisContext()
+        string GetRedisContext()
         {
             var redisContextUrl = Configuration.GetConnectionString("Redis");
             Uri redisUrl;

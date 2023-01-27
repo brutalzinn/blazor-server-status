@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace blazor_server_status
+namespace Blazor.Status.Backend.Services
 {
     public class RedisService
     {

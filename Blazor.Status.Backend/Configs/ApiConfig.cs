@@ -1,6 +1,6 @@
-﻿using blazor_server_status.Models;
+﻿using Blazor.Status.Backend.Models;
 
-namespace blazor_server_status
+namespace Blazor.Status.Backend.Configs
 {
     public class ApiConfig
     {
